@@ -1,6 +1,6 @@
 {
   "name": "stone-markdownlint-config",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "文档规范",
   "main": "index.json",
   "keywords": [
@@ -12,5 +12,5 @@
   "peerDependencies": {
     "markdownlint": "^0.28.1"
   },
-  "gitHead": "7025632058eb6fab845131ea32f37a4346472323"
+  "gitHead": "22bf0cfb5e9145f0806f0d79bab1c665003029ae"
 }
