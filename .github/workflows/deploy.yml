@@ -1,31 +1,41 @@
 name: Build and Deploy
+
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout  ️
-              uses: actions/checkout@v2.3.1
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 步骤 1: 检出代码
+      - name: Checkout
+        uses: actions/checkout@v4 # 使用最新版本
 
-            - name: lock npm version
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 16.18.0
+      # 步骤 2: 设置 Node.js 和 pnpm 环境 (这是关键的修改)
+      - name: Setup Node.js and pnpm
+        uses: actions/setup-node@v4 # 使用最新版本
+        with:
+          node-version: '20' # 升级到一个现代的 LTS 版本，如 18 或 20
+          cache: 'pnpm'      # 关键：自动缓存 pnpm 依赖
 
-            - name: Install and Build
-              run: |
-                  npm i -g pnpm
-                  pnpm run init
-                  pnpm run docs:build
-              env:
-                  NODE_OPTIONS: '--max_old_space_size=4096'
+      # 步骤 3: 安装依赖并构建
+      - name: Install dependencies and Build
+        run: |
+          corepack enable  # 启用 corepack，它可以管理 pnpm/yarn 等包管理器
+          pnpm install      # 安装项目依赖 (代替了 pnpm run init)
+          pnpm run docs:build
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
 
-            - name: Deploy
-              uses: JamesIves/github-pages-deploy-action@4.1.3
-              with:
-                  BRANCH: main
-                  FOLDER: docs/.vuepress/dist
-                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      # 步骤 4: 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4 # 使用最新的 v4 版本
+        with:
+          # 关键修改 1: 部署到 gh-pages 分支
+          branch: gh-pages
+          # 关键修改 2: 使用 GITHUB_TOKEN，无需手动配置
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # 关键修改 3: 指定要部署的静态文件目录
+          folder: docs/.vuepress/dist
