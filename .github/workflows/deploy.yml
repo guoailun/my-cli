@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+# ==================== 关键修改点 1 ====================
+# 为工作流授予写入内容的权限
+permissions:
+  contents: write
+# =====================================================
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -12,7 +18,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 使用专用 Action 来设置 pnpm
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -23,7 +28,6 @@ jobs:
         with:
           version: 8
 
-      # 现在 pnpm 命令是全局可用的
       - name: Install dependencies and Build
         run: |
           pnpm install
@@ -31,9 +35,12 @@ jobs:
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
-          folder: docs/.vuepress/dist
+          BRANCH: gh-pages
+          FOLDER: docs/.vuepress/dist
+          # ==================== 关键修改点 2 (保持不变，但很重要) ====================
+          # 继续使用 GITHUB_TOKEN，因为它现在有权限了
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # ======================================================================
