@@ -1,0 +1,15 @@
+{
+  "name": "stone-markdownlint-config",
+  "version": "1.0.0",
+  "description": "文档规范",
+  "main": "index.json",
+  "keywords": [
+    "markdown",
+    "lint"
+  ],
+  "author": "Emma",
+  "license": "ISC",
+  "peerDependencies": {
+    "markdownlint": "^0.28.1"
+  }
+}
