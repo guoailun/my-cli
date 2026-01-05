@@ -11,5 +11,6 @@
   "license": "ISC",
   "peerDependencies": {
     "markdownlint": "^0.28.1"
-  }
+  },
+  "gitHead": "00cef13d172a1917cb57f9eafa81218c71eb2e33"
 }
