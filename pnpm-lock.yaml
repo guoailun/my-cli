@@ -13,7 +13,7 @@ importers:
         version: 4.6.3
     devDependencies:
       '@commitlint/cli':
-        specifier: ^17.6.1
+        specifier: ^17.8.1
         version: 17.8.1
       husky:
         specifier: ^8.0.3
@@ -54,6 +54,12 @@ importers:
       vuepress-plugin-zooming:
         specifier: ^1.1.7
         version: 1.1.8
+
+  packages/commitlint-config:
+    dependencies:
+      conventional-changelog-conventionalcommits:
+        specifier: ^4.5.0
+        version: 4.6.3
 
   packages/markdownlint-config:
     dependencies:

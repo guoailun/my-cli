@@ -18,7 +18,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.1",
+    "@commitlint/cli": "^17.8.1",
     "husky": "^8.0.3",
     "lerna": "^6.6.2",
     "markdownlint": "^0.28.1",
@@ -41,4 +41,3 @@
     "registry": "https://registry.npmjs.org/"
   }
 }
-
